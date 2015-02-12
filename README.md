@@ -46,6 +46,10 @@ for me ro fok myslef I have to do this work:
 	npm install
 	npm test
 
+### To update your project with template
+
+	git fetch upstream; git merge upstream/cli-boilerplate master
+
 ## Tools Installed
 
 You can do the following:
