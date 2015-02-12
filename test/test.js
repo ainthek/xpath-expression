@@ -3,18 +3,43 @@ var xpathExpr=require("../src/index.js");
 var assert=require("./assert.js"); //extended node/assert library
 
 
-describe("describe", function() {
-	it("xpathExpr has compile method", function() {
+describe("xpathExpr.compile", function() {
+	it("exists", function() {
 		assert.ok("compile" in xpathExpr);
 	});
-	it("xPath.compile can substitute variables, strings are enclosed in '' ", function() {
+	it("string are enclosed in '' ", function() {
 		var compiled=xpathExpr.compile("//*[text()=$x]",{x:"10"});
 		assert.equal("//*[text()='10']",compiled);
 	});
-	it("xPath.compile can substitute variables, numbers are not enclosed in quotes", function() {
+	it("numbers are not enclosed in quotes", function() {
 		var compiled=xpathExpr.compile("//*[text()=$x]",{x:10});
 		assert.equal("//*[text()=10]",compiled);
 	});
+	it("can process multiple params", function() {
+		var compiled=xpathExpr.compile("//*[text()=$text][@role=$role]",{role:"grid", text:"funny grid"});
+		assert.equal("//*[text()='funny grid'][@role='grid']",compiled);
+	});
+	it("fails if variable not found in second param", function() {
+		try{
+			xpathExpr.compile("$x",{});
+			assert(0,"unexpected success");
+		}
+		catch(ex){
+			assert.equal("Missing variable:x", ex.message);	
+			
+		}	
+	});
+	// line[ 52%]  branch[ 72%]
+	it("can handle strings with ' inside ", function() {
+		var compiled=xpathExpr.compile("//*[text()=$apos]",{apos:"John's"});
+		assert.equal("//*[text()=\"John's\"]",compiled);
+	});
+	// line[ 52%]  branch[ 72%]
+	it('can handle strings with " inside ', function() {
+		var compiled=xpathExpr.compile("//*[text()=$apos]",{apos:'John"s'});
+		assert.equal("//*[text()='John\"s']",compiled);
+	});
+	
 
 });
 

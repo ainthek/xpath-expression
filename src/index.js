@@ -62,9 +62,13 @@ xpathExpr.compile=function(strXPath,varObj)
 			{
 				sb.push(varObj[varName]);
 			}
+			else if (!(varName in varObj))
+			{			
+				throw new Error("Missing variable:"+varName);
+			}
 			else
 			{			
-				throw "unsupported data type in XPathExpr.compile: " + typeof varObj[varName];
+				throw new Error("Unsupported data type of variable:" + varName + "," + typeof varObj[varName]);
 			}
 		}
 		else //escaped
