@@ -39,6 +39,13 @@ describe("xpathExpr.compile", function() {
 		var compiled=xpathExpr.compile("//*[text()=$apos]",{apos:'John"s'});
 		assert.equal("//*[text()='John\"s']",compiled);
 	});
+	// line[ 52%]  branch[ 72%] !!!! FIXME: see original code, remove JSHints this is suspicious
+	it('can handle strings with " inside ', function() {
+		var compiled=xpathExpr.compile("//*[text()=$attack]",{attack:"a' or @flag='private"});
+		assert.equal("//*[text()=\"a' or @flag='private\"]",compiled);
+	});
+	
+	
 	
 
 });
