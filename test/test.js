@@ -93,6 +93,15 @@ describe("xpathExpr.compile", function() {
 			param : "param"
 		}), expected);
 	});
+
+	it("repeated $param", function() {
+		var expression = "//*[text()=$param]/[text()=$param]";
+		var param = "param";
+		var expected = "//*[text()='param']/[text()='param']"; // TODO: not a valid xpath ?
+		assert.equal(xpathExpr.compile(expression, {
+			param : "param"
+		}), expected);
+	});
 	it("fails if variable not found in second param", function() {
 		try {
 			xpathExpr.compile("$x", {});
