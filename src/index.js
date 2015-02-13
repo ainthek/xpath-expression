@@ -68,7 +68,7 @@ xpathExpr.compile=function(strXPath,varObj)
 			}
 			else
 			{			
-				throw new Error("Unsupported data type of variable:" + varName + "," + typeof varObj[varName]);
+				throw new Error("Unsupported data type:" + varName + "," + typeof varObj[varName]);
 			}
 		}
 		else //escaped
@@ -86,10 +86,10 @@ xpathExpr.compile=function(strXPath,varObj)
 	return escape character (' or ")
 	or null if not escaped
 	@author: zagora
-	Private: TODO: nicer design, not module scope [marcus]
 */
 function _XPathExpr_isEscaped(regExpResult)
 {
+	
 	var partLeft = regExpResult.input.substring(0,regExpResult.index);
 	var inSimpleQuotes = false, inDoubleQuotes = false;
 	for (var i = 0; i < partLeft.length; i++)

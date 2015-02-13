@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "nsp": "npm shrinkwrap --dev && nsp audit-shrinkwrap",
-    "mocha": "mocha ",
+    "mocha": "mocha",
     "lint": "jshint src test",
     "plato": "plato -r -d test_reports/plato -l .jshintrc src ",
     "test": "npm run mocha && npm run lint && npm run plato && npm run nsp"
